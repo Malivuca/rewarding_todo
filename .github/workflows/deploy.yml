@@ -31,12 +31,7 @@ jobs:
         LAST_NAME: Octocat
       run: |
         yarn install
-    - name: Build
-    - run: |
         CI=false yarn run build
-        
-        
-    - run: |
-        yarn run build
+build
         
         
