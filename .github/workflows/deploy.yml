@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: Simple Deploy
+name: Deploy to GithubPages
 
 # Controls when the action will run. 
 on:
@@ -16,8 +16,7 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  my-job:
-    name: Install and Build
+  build-and-deploy:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -34,4 +33,8 @@ jobs:
         yarn install
         CI=false yarn run build
         
-        
+    - name: Deploy 🚀
+      uses: JamesIves/github-pages-deploy-action@4.1.0
+      with:
+        branch: gh-pages # The branch the action should deploy to.
+        folder: build # The folder the action should deploy.        
