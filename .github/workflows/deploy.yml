@@ -22,13 +22,15 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+      - name: Install
       - uses: actions/checkout@v2
-      - uses: borales/actions-yarn@v2.0.0
         with:
-          cmd: install # will run `yarn install` command
-      - uses: borales/actions-yarn@v2.0.0
+          cmd: yarn install
+          
+      - name: Build
+      - uses: actions/checkout@v2
         with:
-          CI=false cmd: build # will run `yarn build` command
+          cmd: CI=false yarn run build # will run `yarn build` command
           
           
       - uses: borales/actions-yarn@v2.0.0
