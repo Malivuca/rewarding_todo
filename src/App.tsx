@@ -12,7 +12,6 @@ import {
   ListItemIcon,
   ListItemText,
   Collapse,
-  TextField,
   IconButton,
   Checkbox,
   InputAdornment
@@ -70,13 +69,7 @@ const CustomColorCheckbox = withStyles({
   />
 ))
 
-const createTask = (taskName: string, id: number) => {
-  console.log(taskName, id)
 
-  const newTask = { taskName, id }
-
-  return newTask
-}
 
 function App () {
   const classes = useStyles()
@@ -192,6 +185,14 @@ function App () {
     //  </header>
     // </div>
   )
+}
+
+const createTask = (taskName: string, id: number) => {
+  console.log(taskName, id)
+
+  const newTask = { taskName, id }
+
+  return newTask
 }
 
 export default App
