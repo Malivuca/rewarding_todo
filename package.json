@@ -9,14 +9,10 @@
 		"@testing-library/jest-dom": "^5.11.4",
 		"@testing-library/react": "^11.1.0",
 		"@testing-library/user-event": "^12.1.10",
-		"@types/jest": "^26.0.15",
-		"@types/material-ui": "^0.21.8",
-		"@types/node": "^12.0.0",
-		"@types/react": "^17.0.0",
-		"@types/react-dom": "^17.0.0",
 		"react": "^17.0.1",
 		"react-dom": "^17.0.1",
 		"react-scripts": "4.0.3",
+		"sass": "^1.32.8",
 		"typescript": "^4.1.2",
 		"web-vitals": "^1.0.1"
 	},
@@ -43,5 +39,20 @@
 			"last 1 firefox version",
 			"last 1 safari version"
 		]
+	},
+	"devDependencies": {
+		"@types/jest": "^26.0.21",
+		"@types/material-ui": "^0.21.8",
+		"@types/node": "^14.14.35",
+		"@types/react": "^17.0.3",
+		"@types/react-dom": "^17.0.2",
+		"@typescript-eslint/eslint-plugin": "^4.18.0",
+		"@typescript-eslint/parser": "^4.18.0",
+		"eslint": "^7.22.0",
+		"eslint-config-standard": "^16.0.2",
+		"eslint-plugin-import": "^2.22.1",
+		"eslint-plugin-node": "^11.1.0",
+		"eslint-plugin-promise": "^4.3.1",
+		"eslint-plugin-react": "^7.22.0"
 	}
 }

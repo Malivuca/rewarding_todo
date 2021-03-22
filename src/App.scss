@@ -1,11 +1,21 @@
-.TaskRow {
+.TasksList {
 	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	background-color: #33373d;
-	padding: 20px;
-	border-radius: 10px;
-	min-width: 500px;
+	flex-direction: column;
+	min-width: 520px;
+	max-width: 1000px;
+	list-style-type: none;
+
+	.Task {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		background-color: var(--primary);
+		padding: 20px;
+		min-width: 300px;
+
+		.Check {
+		}
+	}
 }
 
 .TaskCheck {

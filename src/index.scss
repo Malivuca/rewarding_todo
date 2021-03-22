@@ -1,0 +1,67 @@
+/* DEFAULT PROJECT COLORS */
+
+:root {
+	--background: rgb(22, 20, 26);
+	--primary-lighter: #9871f5;
+	--primary-light: #916bea;
+	--primary: rgb(33, 34, 44);
+	--primary-dark: #774dd6;
+	--primary-darker: #6842c2;
+	--secondary: #04d361;
+	--secondary-dark: #04bf58;
+	--title-in-primary: #ffffff;
+	--text-in-primary: #d4c2ff;
+	--text-title: #32264d;
+	--text-complement: #9c98a6;
+	--text-base: #ffffff;
+	--line-in-white: #e6e6f0;
+	--input-background: #f8f8fc;
+	--button-text: #ffffff;
+	--box-base: #ffffff;
+	--box-footer: #fafafc;
+	font-size: 16px;
+}
+
+* {
+	/* Fixes a bug where "width: 100%" is larger than actual viewport width */
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	/* -webkit-box-pack: center; */
+
+	/* Default margin and padding for all elements */
+	margin: 0;
+	padding: 0;
+
+	/* Removes highlighting on touch for mobile devices */
+	-webkit-tap-highlight-color: transparent;
+	/* -webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none; */
+	/* user-select: none; */
+}
+
+body {
+	background-color: var(--background);
+}
+
+body,
+input,
+textarea,
+button {
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+		'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+		sans-serif;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+
+	color: var(--text-base);
+}
+@media (max-width: 700px) {
+	:root {
+		font-size: 14px;
+	}
+}
