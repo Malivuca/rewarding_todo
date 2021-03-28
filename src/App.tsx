@@ -22,8 +22,11 @@ import ExpandLess from '@material-ui/icons/ExpandLess'
 import ExpandMore from '@material-ui/icons/ExpandMore'
 import AddRoundedIcon from '@material-ui/icons/AddRounded'
 import DeleteRoundedIcon from '@material-ui/icons/DeleteRounded'
+import EditRoundedIcon from '@material-ui/icons/EditRounded'
+import MoreHorizRoundedIcon from '@material-ui/icons/MoreHorizRounded'
 import RadioButtonUncheckedRoundedIcon from '@material-ui/icons/RadioButtonUncheckedRounded'
 import CheckCircleOutlineRoundedIcon from '@material-ui/icons/CheckCircleOutlineRounded'
+import AddCircleRoundedIcon from '@material-ui/icons/AddCircleRounded'
 
 import { green } from '@material-ui/core/colors'
 
@@ -54,7 +57,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const CustomColorCheckbox = withStyles({
   root: {
-    color: 'black',
+    color: 'grey',
     '&$checked': {
       color: green[600]
     }
@@ -63,15 +66,21 @@ const CustomColorCheckbox = withStyles({
 })((props) => (
   <Checkbox
     color="default"
-    icon={<RadioButtonUncheckedRoundedIcon />}
-    checkedIcon={<CheckCircleOutlineRoundedIcon />}
+    icon={<RadioButtonUncheckedRoundedIcon fontSize="small" />}
+    checkedIcon={<CheckCircleOutlineRoundedIcon fontSize="small" />}
     {...props}
   />
 ))
 
+const createTask = (taskName: string, id: number) => {
+  console.log(taskName, id)
 
+  const newTask = { taskName, id }
 
-function App () {
+  return newTask
+}
+
+function App() {
   const classes = useStyles()
   const [open, setOpen] = React.useState(true)
 
@@ -120,11 +129,11 @@ function App () {
   return (
     <div className="App">
       <header className="App-header">
-        <h5>Today</h5>
+        <h1>Today</h1>
         <br />
-        <ul className="TasksList">
+        <ul className="taskList">
           <form onSubmit={(e) => handleSubmit(e)}>
-            <li>
+            <li className="createTask">
               <CustomInput
                 variant="filled"
                 label="Create task"
@@ -139,22 +148,44 @@ function App () {
                 // }}
                 fullWidth
               />
+              <div className="addAction">
+                <IconButton type="submit">
+                  <AddCircleRoundedIcon
+                    style={{ color: 'var(--secondary)' }}
+                    fontSize="large"
+                  />
+                </IconButton>
+              </div>
             </li>
           </form>
           {tasks.map((task, index) => (
             <>
-              <li key={index} className="Task">
-                <ListItemIcon>
-                  <CustomColorCheckbox />
-                </ListItemIcon>
-                <div>{task.taskName}</div>
-                <ListItemIcon>
-                  <IconButton onClick={() => handleDelete(task.id)}>
-                    <DeleteRoundedIcon />
-                  </IconButton>
-                </ListItemIcon>
+              <li key={index} className="task">
+                <div className="taskBody">
+                  <div className="taskCheck">
+                    <button>
+                      <RadioButtonUncheckedRoundedIcon
+                        fontSize="small"
+                        style={{ color: 'grey' }}
+                      />
+                    </button>
+                    {/* <CustomColorCheckbox /> */}
+                  </div>
+                  <div className="mainText">{task.taskName}</div>
+                  <div className="taskActions">
+                    <button>
+                      <EditRoundedIcon fontSize="small" />
+                    </button>
+                    <button onClick={() => handleDelete(task.id)}>
+                      <DeleteRoundedIcon fontSize="small" />
+                    </button>
+                    <button>
+                      <MoreHorizRoundedIcon />
+                    </button>
+                  </div>
+                </div>
               </li>
-              <hr />
+              {/* <hr className="separator" /> */}
             </>
           ))}
           <ListItem button onClick={handleClick}>
@@ -185,14 +216,6 @@ function App () {
     //  </header>
     // </div>
   )
-}
-
-const createTask = (taskName: string, id: number) => {
-  console.log(taskName, id)
-
-  const newTask = { taskName, id }
-
-  return newTask
 }
 
 export default App

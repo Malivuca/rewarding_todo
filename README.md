@@ -1,3 +1,27 @@
+# Description
+
+日本語がわかれないのでこれを読むことできない
+
+# Development
+
+## Under development
+
+> Implement task description area
+> Implement "edit" function for a task
+> Implement "more actions" button outside of task div, to show floating on the right
+
+## Future features
+
+> Write notes about the activity that will be shown when the user marks them as "doing". This could be the task description
+> Implement move functionality for moving tasks
+> Checking a task will move the task to a "completed tasks" tab
+> Upon deleting a task, show the "undo action" button
+
+## Completed
+
+> Implement "delete task" button
+> Implement "create task" functionality
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
