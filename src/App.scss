@@ -5,6 +5,31 @@
   max-width: 1000px;
   list-style-type: none;
 
+  .editTask {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 10px;
+
+    .mainArea {
+      background-color: var(--primary);
+      padding-top: 10px;
+      padding-left: 10px;
+      padding-right: 10px;
+      border: 1px solid var(--border);
+      width: 100%;
+      margin-bottom: 10px;
+    }
+
+    textarea {
+      background-color: var(--primary);
+      width: 100%;
+      border: none;
+      outline: none;
+      resize: none;
+    }
+  }
+
   .createTask {
     position: relative;
     display: flex;
@@ -18,7 +43,7 @@
   }
 
   .task {
-    border-bottom: 1px solid #f0f0f0ab;
+    border-bottom: 1px solid var(--border);
     cursor: pointer;
 
     .taskBody {
@@ -46,9 +71,6 @@
           border: none;
           cursor: pointer;
           background-color: var(--primary);
-          //   position: absolute;
-          //   top: 0;
-          //   right: 0;
           margin-left: 5px;
           visibility: hidden;
         }
@@ -90,6 +112,27 @@
         }
       }
     }
+  }
+}
+
+.primaryButton {
+  min-width: 50px;
+  cursor: pointer;
+  padding: 8px;
+  border: none;
+  border-radius: 3px;
+  background-color: var(--secondary);
+}
+
+.secondaryButton {
+  cursor: pointer;
+  padding: 8px;
+  border: none;
+  border-radius: 5px;
+  background-color: transparent;
+
+  &:hover {
+    text-decoration: underline;
   }
 }
 

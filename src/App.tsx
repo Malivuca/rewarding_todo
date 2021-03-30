@@ -14,7 +14,8 @@ import {
   Collapse,
   IconButton,
   Checkbox,
-  InputAdornment
+  InputAdornment,
+  TextField
 } from '@material-ui/core'
 
 import InboxIcon from '@material-ui/icons/MoveToInbox'
@@ -91,6 +92,13 @@ function App() {
   const [taskName, setTaskName] = React.useState('')
   const [tasks, setTasks] = React.useState<TaskProps[]>([])
 
+  const handleEdit = (e: React.MouseEvent, id: number, newTaskName: string) => {
+    e.stopPropagation()
+    const newTasks = [...tasks]
+
+    newTasks[id].taskName = newTaskName
+  }
+
   const handleDelete = (id: number) => {
     console.log('Deleting task', id)
 
@@ -159,49 +167,53 @@ function App() {
             </li>
           </form>
           {tasks.map((task, index) => (
-            <>
-              <li key={index} className="task">
-                <div className="taskBody">
-                  <div className="taskCheck">
-                    <button>
-                      <RadioButtonUncheckedRoundedIcon
-                        fontSize="small"
-                        style={{ color: 'grey' }}
-                      />
-                    </button>
-                    {/* <CustomColorCheckbox /> */}
-                  </div>
-                  <div className="mainText">{task.taskName}</div>
-                  <div className="taskActions">
-                    <button>
-                      <EditRoundedIcon fontSize="small" />
-                    </button>
-                    <button onClick={() => handleDelete(task.id)}>
-                      <DeleteRoundedIcon fontSize="small" />
-                    </button>
-                    <button>
-                      <MoreHorizRoundedIcon />
-                    </button>
-                  </div>
+            <li key={index} className="task" onClick={handleClick}>
+              <div className="taskBody">
+                <div className="taskCheck">
+                  <button>
+                    <RadioButtonUncheckedRoundedIcon
+                      fontSize="small"
+                      style={{ color: 'grey' }}
+                    />
+                  </button>
+                  {/* <CustomColorCheckbox /> */}
                 </div>
-              </li>
-              {/* <hr className="separator" /> */}
-            </>
+                <div className="mainText">{task.taskName}</div>
+                <div className="taskActions">
+                  <button onClick={(e) => handleEdit(e, task.id, 'novo Nome')}>
+                    <EditRoundedIcon fontSize="small" />
+                  </button>
+                  <button onClick={(e) => handleDelete(task.id)}>
+                    <DeleteRoundedIcon fontSize="small" />
+                  </button>
+                  <button>
+                    <MoreHorizRoundedIcon />
+                  </button>
+                </div>
+                <Collapse in={open} timeout="auto" unmountOnExit>
+                  <div>Descricao longa lalala</div>
+                </Collapse>
+              </div>
+            </li>
           ))}
-          <ListItem button onClick={handleClick}>
-            <ListItemIcon>
-              <InboxIcon />
-            </ListItemIcon>
-            <ListItemText primary="Aprender Japones" />
-            {open ? <ExpandLess /> : <ExpandMore />}
-          </ListItem>
-          <Collapse in={open} timeout="auto" unmountOnExit>
-            <List component="div" disablePadding>
-              <ListItem button className={classes.nested}>
-                <ListItemText primary="Descricao longa lalalallalal" />
-              </ListItem>
-            </List>
-          </Collapse>
+          <li>
+            <div className="editTask">
+              <div className="mainArea">
+                <textarea rows={4} />
+              </div>
+              <div>
+                <button className="primaryButton">Save</button>
+                <button className="secondaryButton">Cancel</button>
+              </div>
+              {/* <TextField
+                multiline
+                rows={4}
+                defaultValue="Default Value"
+                variant="outlined"
+                fullWidth
+              /> */}
+            </div>
+          </li>
         </ul>
       </header>
     </div>
