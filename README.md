@@ -6,13 +6,14 @@
 
 ## Under development
 
-* Implement task description area
-* Implement "edit" function for a task
 * Implement "more actions" button outside of task div, to show floating on the right
+
+* Implement "edit" function for a task description
 
 ## Future features
 
 * Write notes about the activity that will be shown when the user marks them as "doing". This could be the task description
+
 * Implement move functionality for moving tasks
 
 * Checking a task will move the task to a "completed tasks" tab
@@ -23,6 +24,8 @@
 
 * Implement "delete task" button
 * Implement "create task" functionality
+* Implement "edit" function for a task name
+* Implement task description area
 
 # Getting Started with Create React App
 

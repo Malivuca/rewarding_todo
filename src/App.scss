@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   min-width: 540px;
-  max-width: 1000px;
+  width: 700px;
   list-style-type: none;
 
   .editTask {
@@ -10,6 +10,7 @@
     flex-direction: column;
     align-items: flex-start;
     margin-top: 10px;
+    margin-bottom: 10px;
 
     .mainArea {
       background-color: var(--primary);

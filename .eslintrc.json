@@ -19,6 +19,7 @@
     "no-use-before-define": "off",
     "@typescript-eslint/no-use-before-define": ["error"],
     "no-unused-vars": "warn",
-    "space-before-function-paren": "off"
+    "space-before-function-paren": "off",
+    "multiline-ternary": "off"
   }
 }

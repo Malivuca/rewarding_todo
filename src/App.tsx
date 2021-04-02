@@ -7,10 +7,6 @@ import {
   withStyles
 } from '@material-ui/core/styles'
 import {
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
   Collapse,
   IconButton,
   Checkbox,
@@ -36,8 +32,11 @@ import './App.scss'
 import { CustomInput } from './components/filled-input.component'
 
 interface TaskProps {
-  taskName: string
   id: number
+  taskName: string
+  taskDescription: string
+  completed: boolean
+  editing: boolean
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -73,10 +72,16 @@ const CustomColorCheckbox = withStyles({
   />
 ))
 
-const createTask = (taskName: string, id: number) => {
+const createTask = (taskName: string, id: number, taskDescription = '') => {
   console.log(taskName, id)
 
-  const newTask = { taskName, id }
+  const newTask = {
+    taskName,
+    id,
+    taskDescription,
+    completed: false,
+    editing: false
+  }
 
   return newTask
 }
@@ -90,15 +95,58 @@ function App() {
   }
 
   const [taskName, setTaskName] = React.useState('')
+  const [newTaskName, setNewTaskName] = React.useState('')
   const [tasks, setTasks] = React.useState<TaskProps[]>([])
 
-  const handleEdit = (e: React.MouseEvent, id: number, newTaskName: string) => {
-    e.stopPropagation()
+  const handleComplete = (id: number) => {
+    const newTasks = [...tasks]
+
+    newTasks[id].completed = !newTasks[id].completed
+
+    setTasks(newTasks)
+  }
+
+  const setEdit = (id: number) => {
+    const newTasks = [...tasks]
+
+    let i
+
+    for (i = 0; i < newTasks.length; i++) {
+      if (newTasks[i].editing === true) {
+        newTasks[i].editing = false
+
+        break
+      }
+    }
+
+    newTasks[id].editing = true
+
+    setTasks(newTasks)
+  }
+
+  const unsetEdit = (id: number) => {
+    const newTasks = [...tasks]
+
+    newTasks[id].editing = false
+
+    setTasks(newTasks)
+  }
+
+  const handleEdit = (id: number, newTaskName: string) => {
+    if (!newTaskName) {
+      alert('You need to type a task name!')
+
+      return
+    }
+
     const newTasks = [...tasks]
 
     newTasks[id].taskName = newTaskName
-  }
 
+    setTasks(newTasks)
+
+    unsetEdit(id)
+  }
   const handleDelete = (id: number) => {
     console.log('Deleting task', id)
 
@@ -120,7 +168,7 @@ function App() {
     e.preventDefault()
 
     if (!taskName) {
-      alert('You didnt type a task!')
+      alert('You didnt type a task name!')
 
       return
     }
@@ -168,52 +216,95 @@ function App() {
           </form>
           {tasks.map((task, index) => (
             <li key={index} className="task" onClick={handleClick}>
-              <div className="taskBody">
-                <div className="taskCheck">
-                  <button>
-                    <RadioButtonUncheckedRoundedIcon
-                      fontSize="small"
-                      style={{ color: 'grey' }}
+              {task.editing ? (
+                <div className="editTask">
+                  <div className="mainArea">
+                    <textarea
+                      value={newTaskName}
+                      onChange={(e) => setNewTaskName(e.target.value)}
+                      rows={4}
                     />
-                  </button>
-                  {/* <CustomColorCheckbox /> */}
-                </div>
-                <div className="mainText">{task.taskName}</div>
-                <div className="taskActions">
-                  <button onClick={(e) => handleEdit(e, task.id, 'novo Nome')}>
-                    <EditRoundedIcon fontSize="small" />
-                  </button>
-                  <button onClick={(e) => handleDelete(task.id)}>
-                    <DeleteRoundedIcon fontSize="small" />
-                  </button>
-                  <button>
-                    <MoreHorizRoundedIcon />
-                  </button>
-                </div>
-                <Collapse in={open} timeout="auto" unmountOnExit>
-                  <div>Descricao longa lalala</div>
-                </Collapse>
-              </div>
-            </li>
-          ))}
-          <li>
-            <div className="editTask">
-              <div className="mainArea">
-                <textarea rows={4} />
-              </div>
-              <div>
-                <button className="primaryButton">Save</button>
-                <button className="secondaryButton">Cancel</button>
-              </div>
-              {/* <TextField
+                  </div>
+                  <div>
+                    <button
+                      className="primaryButton"
+                      onClick={() => handleEdit(task.id, newTaskName)}
+                    >
+                      Save
+                    </button>
+                    <button
+                      className="secondaryButton"
+                      onClick={() => unsetEdit(task.id)}
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                  {/* <TextField
                 multiline
                 rows={4}
                 defaultValue="Default Value"
                 variant="outlined"
                 fullWidth
               /> */}
-            </div>
-          </li>
+                </div>
+              ) : (
+                <>
+                  <div className="taskBody">
+                    <div className="taskCheck">
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          handleComplete(index)
+                        }}
+                      >
+                        <RadioButtonUncheckedRoundedIcon
+                          fontSize="small"
+                          style={
+                            tasks[index].completed
+                              ? { color: 'var(--secondary)' }
+                              : { color: 'grey' }
+                          }
+                        />
+                      </button>
+                      {/* <CustomColorCheckbox /> */}
+                    </div>
+                    <div className="mainText">{task.taskName}</div>
+                    <div className="taskActions">
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          setNewTaskName(task.taskName)
+                          setEdit(index)
+                        }}
+                      >
+                        <EditRoundedIcon fontSize="small" />
+                      </button>
+                      <button onClick={(e) => handleDelete(task.id)}>
+                        <DeleteRoundedIcon fontSize="small" />
+                      </button>
+                      <button>
+                        <MoreHorizRoundedIcon />
+                      </button>
+                    </div>
+                  </div>
+                  {task.taskDescription ? (
+                    <Collapse in={open} timeout="auto" unmountOnExit>
+                      <div
+                        style={{
+                          backgroundColor: 'var(--primary)',
+                          paddingLeft: '20px',
+                          paddingBottom: '10px',
+                          textAlign: 'left'
+                        }}
+                      >
+                        Note: {task.taskDescription}
+                      </div>
+                    </Collapse>
+                  ) : null}
+                </>
+              )}
+            </li>
+          ))}
         </ul>
       </header>
     </div>
